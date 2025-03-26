@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录验证码</title>
+    <style>
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; font-family: Arial, sans-serif; }
+        .code-box { background: #f5f5f5; padding: 15px; margin: 20px 0; border-radius: 8px; font-size: 24px; text-align: center; }
+        .mobile-adjust { font-size: 16px; line-height: 1.5; }
+        @media (max-width: 480px) { .container { padding: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>安全登录验证</h2>
+        <p class="mobile-adjust">您的登录验证码：</p>
+        <div class="code-box">{{ verification_code }}</div>
+        <p class="mobile-adjust">如非本人操作请忽略本邮件</p>
+    </div>
+</body>
+</html>

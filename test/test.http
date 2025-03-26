@@ -1,0 +1,15 @@
+@prefix = http://127.0.0.1:8000
+
+###
+POST {{prefix}}/test-model
+Content-Type: application/json
+Accept: text/event-stream
+
+{
+    "message": "What's the weather today?"
+}
+
+###
+GET {{prefix}}/test-stream
+Accept: text/event-stream
+

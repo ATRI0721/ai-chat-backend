@@ -1,0 +1,71 @@
+post http://localhost:8000  HTTP/1.1
+
+[
+    {
+        "role": "user",
+        "content": "hello"
+    }
+]
+
+###
+GET http://localhost:8000/t2/10  HTTP/1.1
+
+{
+    "name" : "John"
+}
+
+###
+post http://localhost:8000  HTTP/1.1
+
+{
+    "message": "What's the weather today?"
+}
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDI3MzM5NTEsInN1YiI6ImI4NjVjZjY1LWZhNmEtNGY2OC1hZGUxLWI0NjM2YjdhMDBkZCJ9.sI0ljcO3hn5ql2XMx23JWbD-PKUvr3ZUAAV8Ygtsg-Q
+
+###
+POST   http://localhost:8000/api/v1/chat/conversation  HTTP/1.1
+Authorization: Bearer {{token}}
+
+{
+   
+}
+
+###
+GET http://localhost:8000/api/v1/chat/conversations  HTTP/1.1
+Authorization: Bearer {{token}}
+
+@conversation_id = f2936ab7-81fe-43e6-98b7-bafa37a72f41
+
+###
+GET http://localhost:8000/api/v1/chat/conversation/{{conversation_id}}/messages  HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+PUT http://localhost:8000/api/v1/chat/conversation/{{conversation_id}}  HTTP/1.1
+Authorization: Bearer {{token}}
+
+{
+    "title": "New title"
+}
+
+###
+DELETE http://localhost:8000/api/v1/chat/conversation/{{conversation_id}}  HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+POST http://localhost:8000/api/v1/chat/completions/{{conversation_id}}
+Authorization: Bearer {{token}}
+
+{
+    "message": "What's the weather today?"
+}
+
+###
+GET http://localhost:8000/api/v1/auth/verify  HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+GET http://localhost:8000/api/v1/auth/refresh-token  HTTP/1.1
+Authorization: Bearer {{token}}
+
