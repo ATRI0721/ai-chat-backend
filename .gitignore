@@ -3,3 +3,11 @@ __pycache__/
 ai-chat-backend/
 
 core/config.py
+
+prompts/
+
+conversations/
+
+vector_QAFamily_db/
+
+ai_chat.db

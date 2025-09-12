@@ -3,7 +3,6 @@ from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings
 from openai import AsyncOpenAI
 from prompts import prompt_template
-from kb import KB
 
 
 class Settings:
@@ -98,10 +97,11 @@ async def generate_ai_response(messages: list[dict]):
     )
     stream = await ds_client.chat.completions.create(
         model=settings.DEEPSEEK_MODEL,
-        messages=[{"role": "system", "content": prompt}, {"role": "system", "content": KB}],
+        messages=[{"role": "user", "content": prompt}],
         stream=True
     )
-
-    async for item in stream_after_marker(stream, "给用户的回答:\n"):
+    
+    async for item in stream_after_marker(stream, "给用户的回答\n"):
         yield item
+
 

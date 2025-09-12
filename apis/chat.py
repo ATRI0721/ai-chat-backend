@@ -28,7 +28,7 @@ def create_conversation(user: CurrentUser, conversation: ChatCreate, session: Se
 def get_messages(conversation: GetConversation):
     return conversation.messages
 
-@router.put("/conversation/{conversation_id}", response_model=ChatConversation)
+@router.patch("/conversation/{conversation_id}", response_model=ChatConversation)
 def update_title(conversation: GetConversation, title: ChatUpdate, session: SessionDep):
     update_conversation_title(conversation, title.title, session)
     return conversation
