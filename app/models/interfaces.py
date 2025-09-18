@@ -1,11 +1,24 @@
 from datetime import datetime
 from sqlmodel import Field, SQLModel
 
-
+# --- 用户相关 ---
 class UserCreate(SQLModel):
+    email: str
     password: str
+    verification_code: str
+
+class UserLoginPassword(SQLModel):
+    email: str
+    password: str
+
+class UserLoginCode(SQLModel):
     email: str
     verification_code: str
+
+class UserResetPassword(SQLModel):
+    email: str
+    verification_code: str
+    new_password: str
 
 class UserLoginResponse(SQLModel):
     id: str
@@ -15,20 +28,8 @@ class UserResponse(SQLModel):
     access_token: str
     user: UserLoginResponse
 
-class UserLoginCode(SQLModel):
-    email: str
-    verification_code: str
 
-class UserLoginPassword(SQLModel):
-    email: str
-    password: str
-
-class UserResetPassword(SQLModel):
-    email: str
-    verification_code: str
-    new_password: str
-
-
+# --- 邮件验证相关 ---
 class AuthEmail(SQLModel):
     email: str
 
@@ -37,31 +38,32 @@ class AuthEmailVerification(SQLModel):
     verification_code: str
 
 
+# --- 聊天相关 ---
 class ChatMessage(SQLModel):
     id: str
     content: str
-    is_user: bool
+    role: str
     conversation_id: str
+    created_at: datetime
 
 class ChatConversation(SQLModel):
     id: str
     title: str
-    update_time: int
+    update_time: datetime
 
 class ChatCreate(SQLModel):
     title: str = Field(default="新对话")
-    user_id:str = ""
+    
 
 class ChatUpdate(SQLModel):
-    title: str 
+    title: str
 
 
-# JSON payload containing access token
+# --- Token ---
 class Token(SQLModel):
     access_token: str
     token_type: str = "bearer"
 
-
-# Contents of JWT token
 class TokenPayload(SQLModel):
     sub: str | None = None
+    role: str = "user"

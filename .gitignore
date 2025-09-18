@@ -2,12 +2,15 @@ __pycache__/
 
 ai-chat-backend/
 
-core/config.py
-
-prompts/
-
-conversations/
-
 vector_QAFamily_db/
 
 ai_chat.db
+
+test/
+
+prompts.py
+
+kb.py
+
+.env
+

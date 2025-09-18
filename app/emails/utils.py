@@ -2,9 +2,9 @@ from random import randint
 import re
 import redis
 
-from core.config import settings
+from app.core.config import settings
 
-_redis = redis.Redis(port=settings.REDIS_PORT)
+_redis = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT)
 
 def set_email_verification_code(email: str, code: str) -> None:
     _redis.set(email, code, ex=settings.EMAIL_VALIDATE_TOKEN_EXPIRE_MINUTES)  # 10 minutes
@@ -14,7 +14,7 @@ def get_email_verification_code(email: str):
 
 def is_valid_email(email: str) -> bool:
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return re.match(pattern, email)
+    return re.match(pattern, email) is not None
 
 def generate_verification_code() -> str:
     return str(randint(100000,999999))

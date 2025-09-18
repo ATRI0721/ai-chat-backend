@@ -1,9 +1,9 @@
 from fastapi import APIRouter, BackgroundTasks, Body, HTTPException
-from apis.user import generate_user_response
-from core.deps import CurrentUser
-from emails.utils import  verify_email
-from emails.sender import send_verification_email
-from models.interfaces import AuthEmailVerification, UserResponse
+from app.apis.user import generate_user_response
+from app.core.deps import CurrentUser
+from app.emails.utils import  verify_email
+from app.emails.sender import send_verification_email
+from app.models.interfaces import AuthEmailVerification, UserResponse
 
 router = APIRouter(tags=["auth"], prefix="/auth")
 
@@ -17,10 +17,10 @@ def send_verification(type: str, background_tasks: BackgroundTasks, email: str =
 def verify_verification(email_verification: AuthEmailVerification):
     if not verify_email(email_verification.email, email_verification.verification_code):
         raise HTTPException(status_code=400, detail="Invalid verification code")
-    return {"message": "Email verified"}
+    return {"message": "Email verified", "valid": True}
 
-@router.get("/verify")
-def verify(user: CurrentUser, response_model=UserResponse):
+@router.get("/verify", response_model=UserResponse)
+def verify(user: CurrentUser):
     return generate_user_response(user)
 
 @router.get("/refresh-token", response_model=UserResponse)

@@ -1,10 +1,9 @@
 from logging import log
-from aiosmtplib import SMTPResponseException
 from fastapi import HTTPException
 from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 import jinja2
-from core.config import settings
-from emails.utils import is_valid_email, generate_verification_code, set_email_verification_code
+from app.core.config import settings
+from app.emails.utils import is_valid_email, generate_verification_code, set_email_verification_code
 
 conf = ConnectionConfig(
     MAIL_USERNAME=settings.EMAIL_USERNAME,
@@ -18,7 +17,7 @@ conf = ConnectionConfig(
     VALIDATE_CERTS=True
 )
 
-env = jinja2.Environment(loader=jinja2.PackageLoader(package_name="emails", package_path="templates"))
+env = jinja2.Environment(loader=jinja2.PackageLoader(package_name="app.emails", package_path="templates"))
 
 templates = {
     'register' : ['register_email.html','Register Email Verification'],
@@ -44,10 +43,8 @@ def send_verification_email(to_email: str, type: str):
         try:
             set_email_verification_code(to_email, code)
             await fm.send_message(message)
-        except SMTPResponseException as e:
-            pass
         except Exception as e:
-            log("error", e)
+            log(10, "Error sending email", e)
     return _send_email
 
 # if __name__ == '__main__':

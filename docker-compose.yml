@@ -1,0 +1,14 @@
+services:
+  fastapi:
+    build: .
+    container_name: ai-chat-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/code/data
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - EMAIL_USERNAME=${EMAIL_USERNAME}
+      - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      - MODEL_API_KEY=${MODEL_API_KEY}
+      - EMBEND_MODEL_URL=http://host.docker.internal:11434
