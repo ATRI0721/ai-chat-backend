@@ -45,6 +45,7 @@ def send_verification_email(to_email: str, type: str):
             await fm.send_message(message)
         except Exception as e:
             log(10, "Error sending email", e)
+            raise HTTPException(status_code=500, detail="Error sending email")
     return _send_email
 
 # if __name__ == '__main__':
